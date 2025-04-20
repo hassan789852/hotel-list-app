@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "391560146757",
+    "project_id": "hotel-list-app",
+    "storage_bucket": "hotel-list-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:391560146757:android:ac2caaf43bdd5f24f6d82c",
+        "android_client_info": {
+          "package_name": "com.hassan.hotels.hotel_list_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrLZW2O-QzfDU9SP25sR87qh4SORC4ZO8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
