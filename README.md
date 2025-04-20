@@ -48,6 +48,20 @@ The GitHub Actions workflow is defined in `.github/workflows/build.yml`.
 | ⬆⬇ Scroll FAB Animation  | FAB hides on scroll down, reappears on scroll up         |
 | 🧱 GridView               | Responsive card layout for venues                        |
 
+
+## 🦸 Hero Animation
+
+The app includes a **Hero animation** to provide smooth, seamless transitions between venue tiles and their detailed view.
+
+### ✨ Where it's used:
+- When navigating from the venue card (in GridView) to the Venue Details Page
+- The image smoothly transitions using a shared `Hero` tag
+
+### ✅ Benefit:
+- Adds visual continuity and polish to the navigation experience
+- Enhances user engagement with natural feeling motion
+
+
 ---
 
 ## 🔗 Deep Linking (App Links / Universal Links)
@@ -102,6 +116,32 @@ test/
 │   ├── gyms.json
 │   └── hotels.json
 ```
+
+
+
+Sure! Here's a clean `README.md` section to describe your **simulated load more** logic:
+
+---
+
+## 🔄 Simulated Load More (Pagination)
+
+A simulated pagination mechanism is added in the `VenueListScreenController` to mimic "load more" behavior typically seen in real APIs.
+
+### 🧪 Purpose
+Since the current project loads local JSON files (not using a backend API), this simulation helps visualize how pagination would work when integrated with an actual endpoint.
+
+### 🧩 How It Works
+- The controller keeps track of:
+  - `currentPage`
+  - `pageSize`
+- A method `loadNextPage()` appends more items from the full dataset into the visible list.
+- A `ScrollController` listener triggers this method when the user scrolls near the bottom.
+
+This makes the UI feel like it’s loading more data, even though all data exists locally.
+
+> ✅ When integrating with a backend, this logic can be extended by calling paginated API endpoints like `/venues?page=2&limit=10`.
+
+
 
 ---
 

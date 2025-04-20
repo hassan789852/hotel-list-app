@@ -25,6 +25,12 @@ class VenueListScreenController extends _$VenueListScreenController {
 
 
 
+
+
+
+
+
+
   Future<void> getVenuesByChoiceChip({required int index}) async {
     if (!(index == 0 || index == 1)) {
       return;
@@ -60,6 +66,8 @@ class VenueListScreenController extends _$VenueListScreenController {
     }
   }
 
+
+
   //add listener
   void showFloatingActionButtonsListener() {
     state.gridController.addListener(_onGridScroll);
@@ -85,19 +93,65 @@ class VenueListScreenController extends _$VenueListScreenController {
     );
   }
 
+
+
+  // ------Load More -------------------------------------
+  Future<void> loadNextPage() async {
+    if (state.isFetchingMore??false) return;
+
+    state = state.copyWith(isFetchingMore: true);
+
+    await Future.delayed(Duration(seconds: 1)); // simulate latency
+
+    final allItems = state.fullItemsList ?? [];
+    final nextPageStart = state.currentPage * state.pageSize;
+    final nextPageItems = allItems.skip(nextPageStart).take(state.pageSize).toList();
+
+    final updatedList = [
+      ...?state.venues?.value?.items,
+      ...nextPageItems,
+    ];
+
+    state = state.copyWith(
+      venues: AsyncValue.data(
+        FilterResponse(
+          filters: state.venues?.value?.filters ?? [],
+          items: updatedList,
+        ),
+      ),
+      currentPage: state.currentPage + 1,
+      isFetchingMore: false,
+    );
+  }
+
+
+  void attachScrollListener(ScrollController controller, VoidCallback onLoadMore) {
+    controller.addListener(() {
+      if (controller.position.pixels >=
+          controller.position.maxScrollExtent - 200) {
+        onLoadMore();
+      }
+    });
+  }
 }
 
 class VenueListScreenState {
   final int selectedChip;
+  final int pageSize;
   final AsyncValue<FilterResponse>? venues;
   final List<Item>? fullItemsList;
   final List<String>? selectedCategoies;
   final bool showFab;
+  final bool? isFetchingMore;
+  final int currentPage;
   final ScrollController gridController;
 
   VenueListScreenState(
       {this.selectedChip = 0,
+      this.currentPage = 0,
+      this.pageSize = 20,
       this.venues,
+      this.isFetchingMore,
       this.showFab = true,
       required this.gridController,
       required this.selectedCategoies,
@@ -105,8 +159,11 @@ class VenueListScreenState {
 
   VenueListScreenState copyWith({
     int? selectedChip,
+    int? pageSize,
+    int? currentPage,
     AsyncValue<FilterResponse>? venues,
     bool? showFab,
+    bool? isFetchingMore,
     ScrollController? gridController,
     List<Item>? fullItemsList,
     List<String>? selectedCategoies,
@@ -114,6 +171,9 @@ class VenueListScreenState {
     return VenueListScreenState(
         selectedChip: selectedChip ?? this.selectedChip,
         venues: venues ?? this.venues,
+        pageSize: pageSize ?? this.pageSize,
+        currentPage: currentPage ?? this.currentPage,
+        isFetchingMore: isFetchingMore ?? this.isFetchingMore,
         showFab: showFab ?? this.showFab,
         selectedCategoies: selectedCategoies ?? this.selectedCategoies,
         gridController: gridController ?? this.gridController,
