@@ -129,12 +129,9 @@ integration_test/
 
 --- 
 
-Let me know if you'd like to separate test folders even more or need help running test commands!
 
 
 
-
----
 
 ## 🔄 Simulated Load More (Pagination)
 
