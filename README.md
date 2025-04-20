@@ -127,9 +127,7 @@ integration_test/
 └── place_info_window_test.dart
 ```
 
---- 
 
-Let me know if you'd like to separate test folders even more or need help running test commands!
 
 
 
