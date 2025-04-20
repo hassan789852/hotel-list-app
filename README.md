@@ -13,6 +13,9 @@ A Flutter app for discovering venues such as pools, gyms, and beaches, featuring
 - Deep linking (App Links / Universal Links)
 - Floating action button (FAB) animation on scroll
 - Smooth shimmer animation while content is loading
+- Hero animation between list and detail views
+- Simulated pagination via controller scrolling logic
+- CI/CD integration with GitHub Actions for builds and testing
 
 ---
 
@@ -90,36 +93,46 @@ ProductPage(productId: 123)
 
 ---
 
+
 ## 🧪 Testing
 
 This project includes:
 
 | Test Type         | What It Covers                                  |
 |------------------|--------------------------------------------------|
-| ✅ Unit Tests     | Business logic, filters, state manipulation      |
-| ✅ Widget Tests   | UI components and interaction behavior           |
-| ✅ Integration    | Deep links, screen transitions, FAB + bottom sheet |
+| ✅ Unit Tests     | Business logic, filters, controller state        |
+| ✅ Widget Tests   | UI behavior, layout rendering, chip selection    |
+| ✅ Integration    | Full flows: deep links, FAB visibility, filters  |
 
 ### 📂 Example Structure
 
 ```
 test/
-├── controller/
-│   ├── venue_list_filter_controller_test.dart
-│   └── venue_list_screen_controller_test.dart
-├── filter_test/
-│   └── filter_category_chips_test.dart
-├── map_test/
-│   ├── map_controller_test.dart
-│   └── place_info_window_test.dart
 ├── fixtures/
 │   ├── gyms.json
 │   └── hotels.json
+├── unit/
+│   ├── map_controller_test.dart
+│   ├── venue_list_filter_controller_test.dart
+│   └── venue_list_screen_controller_test.dart
+├── widget/
+│   ├── custom_expansion_tile_test.dart
+│   ├── filter_category_chips_test.dart
+│   ├── place_info_window_test.dart
+│   ├── venu_details_title_test.dart
+│   └── venue_details_widget_test.dart
+
+integration_test/
+├── filter_sheet_integration_test.dart
+└── place_info_window_test.dart
 ```
 
+--- 
+
+Let me know if you'd like to separate test folders even more or need help running test commands!
 
 
-Sure! Here's a clean `README.md` section to describe your **simulated load more** logic:
+
 
 ---
 
