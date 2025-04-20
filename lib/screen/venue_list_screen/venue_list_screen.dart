@@ -73,8 +73,16 @@ class VenueListScreenState extends ConsumerState<VenueListScreen> {
                         return VenueCard(
                           name: venue?.name ?? "",
                           location: venue?.city ?? "",
-                          imageUrls: venueImagesUrls??[],
+                          imageUrls: venueImagesUrls ?? [],
+                          onCardTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return VenueDetailsScreen(venue: venue);
+                              },
+                            ));
+                          },
                         );
+
                       }),
                 ),
         ],

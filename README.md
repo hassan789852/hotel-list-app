@@ -1,16 +1,181 @@
-# hotel_list_app
+# 🏝️ Privilee Venues Flutter App
 
-A new Flutter project.
+A Flutter app for discovering venues such as pools, gyms, and beaches, featuring a modern UI, deep linking support, map integration, shimmer loading, and full test coverage. Built with Riverpod, Dio-based simulation, and custom error handling.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## ✨ Features
 
-A few resources to get you started if this is your first Flutter project:
+### 💡 Core Functionality
+- Category-based filtering of venues
+- GridView layout optimized for mobile
+- Google Maps support with dynamic markers and info windows
+- Deep linking (App Links / Universal Links)
+- Floating action button (FAB) animation on scroll
+- Smooth shimmer animation while content is loading
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+---
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 🎬 UI/UX Animations
+
+| Feature                   | Description                                              |
+|--------------------------|----------------------------------------------------------|
+| 🔄 Shimmer Animation      | While venue data is loading                              |
+| ⬆⬇ Scroll FAB Animation  | FAB hides on scroll down, reappears on scroll up         |
+| 🧱 GridView               | Responsive card layout for venues                        |
+
+---
+
+## 🔗 Deep Linking (App Links / Universal Links)
+
+Deep linking is enabled using the [`app_links`](https://pub.dev/packages/app_links) package.
+
+- **Android**: via `intent-filter` and hosted `assetlinks.json`
+- **iOS**: via `Associated Domains` and hosted `apple-app-site-association`
+- **Centralized logic**: all deep links are parsed in `DeepLinkService`
+
+### 🧠 Example
+
+```dart
+DeepLinkService().init(navigatorKey); // Initializes listener
+```
+
+When the app receives a link like `https://privilee/item/123`, it automatically navigates to:  custom page
+
+```
+ProductPage(productId: 123)
+```
+
+> ⚠️ Note: This requires server-side files hosted at:
+> - Android: `https://example.com/.well-known/assetlinks.json`
+> - iOS: `https://example.com/.well-known/apple-app-site-association`
+
+---
+
+## 🧪 Testing
+
+This project includes:
+
+| Test Type         | What It Covers                                  |
+|------------------|--------------------------------------------------|
+| ✅ Unit Tests     | Business logic, filters, state manipulation      |
+| ✅ Widget Tests   | UI components and interaction behavior           |
+| ✅ Integration    | Deep links, screen transitions, FAB + bottom sheet |
+
+### 📂 Example Structure
+
+```
+test/
+├── controller/
+│   ├── venue_list_filter_controller_test.dart
+│   └── venue_list_screen_controller_test.dart
+├── filter_test/
+│   └── filter_category_chips_test.dart
+├── map_test/
+│   ├── map_controller_test.dart
+│   └── place_info_window_test.dart
+├── fixtures/
+│   ├── gyms.json
+│   └── hotels.json
+```
+
+---
+
+## 🧰 Backend Simulation
+
+Because this project doesn't use a live backend, we simulate network requests inside the controller by loading static JSON files like `gyms.json` or `hotels.json`.
+
+📁 Example:
+```dart
+await rootBundle.loadString('assets/json/gyms.json');
+```
+
+This allows fast UI testing and logic validation without external APIs.
+
+---
+
+## 🚀 Advanced API Simulation with Dio
+
+For apps that want to see how the same logic would work with real APIs, we've included:
+
+### 📁 `lib/core/base_dio/base_dio.dart`
+
+```dart
+final response = await baseDio.get(
+  subUrl: "/venues",
+  model: VenueModel(),
+  isListOfModel: true,
+);
+```
+
+- Uses Dio to fetch and deserialize models
+- Integrates with a generic `DataState<T>` wrapper to separate success/failure
+
+### 🧠 Response Structure
+
+#### ✅ Success:
+```dart
+class DataSuccess<T> extends DataState<T> {
+  const DataSuccess(T data);
+}
+```
+
+#### ❌ Failure:
+```dart
+class DataFailed<T> extends DataState<T> {
+  const DataFailed(ExceptionResponse error);
+}
+```
+
+### 📁 Error Handling
+
+Located in:
+- `lib/core/base_dio/exception_handler.dart`
+- `lib/core/base_dio/data_state.dart`
+
+Provides:
+- Centralized `ExceptionResponse` class
+- Localized error codes for:
+    - No internet
+    - Timeout
+    - Cancelled request
+    - Certificate error
+    - Unknown issues
+
+```dart
+switch (dioException.type) {
+  case DioExceptionType.receiveTimeout:
+    return ExceptionResponse(statusCode: -3, exceptionMessages: ["Receive timeout"]);
+}
+```
+
+> All handled errors bubble up through `DataFailed` and can be shown in your UI.
+
+---
+
+## 🚀 Getting Started
+
+```bash
+flutter pub get
+flutter run
+```
+
+To run tests:
+
+```bash
+flutter test
+flutter test integration_test/
+```
+
+---
+
+## 📌 Requirements
+
+| Platform | Setup |
+|----------|-------|
+| Android  | `assetlinks.json` hosted at `.well-known/` |
+| iOS      | `apple-app-site-association` hosted        |
+
+> If hosted server files are not configured, deep linking may not open the app.
+
+---

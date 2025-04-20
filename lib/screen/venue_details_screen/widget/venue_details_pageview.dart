@@ -49,7 +49,7 @@ class VenueDetailsPageView extends StatelessWidget {
                     shape: BoxShape.circle,
                     color: currentPage == idx
                         ? AppColors.white
-                        : AppColors.white.withValues(alpha: .5),
+                        : AppColors.white.withOpacity(.5),
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class VenueDetailsPageView extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                      color: AppColors.white.withValues(alpha: 8),
+                      color: AppColors.white.withOpacity(.8),
                       shape: BoxShape.circle),
                   child: Icon(Icons.close),
                 ),

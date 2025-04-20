@@ -6,9 +6,11 @@ class CustomExpansionTile extends StatelessWidget {
     required this.title,
     required this.children,
     required this.badge,
+    required this.subtitle,
   });
   final String title;
   final String badge;
+  final String subtitle;
   final List<Widget> children;
 
   @override
@@ -40,7 +42,7 @@ class CustomExpansionTile extends StatelessWidget {
                                 .textTheme
                                 .bodySmall
                                 ?.copyWith(
-                                    color: AppColors.accent,
+                                    color: AppColors.textSecondary,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 12),
                           ),
@@ -53,15 +55,27 @@ class CustomExpansionTile extends StatelessWidget {
               //   size: 20,
               //   color: AppColors.accent,
               // ),
-
+              subtitle: subtitle.isEmpty
+                  ? SizedBox.shrink()
+                  : Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.textSecondary,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 12),
+                    ),
+              showTrailingIcon: children.isNotEmpty,
               collapsedIconColor: AppColors.lightGray,
               iconColor: AppColors.lightGray,
               tilePadding: const EdgeInsets.all(0),
               collapsedBackgroundColor: Colors.transparent,
               backgroundColor: Colors.transparent,
               expandedAlignment: Alignment.centerLeft,
+              expandedCrossAxisAlignment: CrossAxisAlignment.start,
               dense: true,
-              visualDensity: const VisualDensity(vertical: -2, horizontal: -2),
+              visualDensity: VisualDensity(
+                  vertical: VisualDensity.minimumDensity,
+                  horizontal: VisualDensity.minimumDensity),
               children: children),
           Divider()
         ],

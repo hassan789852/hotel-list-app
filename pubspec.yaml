@@ -17,7 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   intl: any
   flutter_riverpod: ^2.6.1
-
+  app_links: ^6.4.0
   riverpod_annotation: ^2.6.1
   shimmer: ^3.0.0
   cached_network_image: ^3.2.3

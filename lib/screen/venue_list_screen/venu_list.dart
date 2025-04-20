@@ -17,6 +17,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../core/widgets/text/custom_text_from_field.dart';
 import '../../model/filter_models.dart';
 import '../map_screen/map_screen.dart';
+import '../venue_details_screen/venue_details.dart';
 part 'venue_list_screen.dart';
 part 'widget/venu_list_screen_appbar.dart';
 part 'widget/filter_chips.dart';

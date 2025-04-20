@@ -64,8 +64,41 @@ class _VenueDetailsScreenState extends State<VenueDetailsScreen> {
                     CustomExpansionTile(
                         title: thingToDo?.title ?? "",
                         badge: thingToDo?.badge ?? "",
-                        children: []),
-              
+                        subtitle: thingToDo?.subtitle ?? "",
+                        children: (thingToDo?.items?.isNotEmpty ?? false)
+                            ? [
+                                VenueItemsDetailsGrid(items: thingToDo?.items),
+                              ]
+                            : List.generate(
+                                thingToDo?.content?.length ?? 0,
+                                (index) {
+                                  final thingsToDoItem = thingToDo?.content
+                                      ?.elementAtOrNull(index)
+                                      ?.firstOrNull;
+                                  return Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text("•"),
+                                      SizedBox(
+                                        width: 2,
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          thingsToDoItem?.text ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 13),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              )),
                   ],
                 );
               },
@@ -74,5 +107,69 @@ class _VenueDetailsScreenState extends State<VenueDetailsScreen> {
         ),
       )),
     );
+  }
+}
+
+class VenueItemsDetailsGrid extends StatelessWidget {
+  const VenueItemsDetailsGrid({
+    super.key,
+    required this.items,
+  });
+
+  final List<ThingsToDoItem>? items;
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 10,
+            childAspectRatio: 1.2),
+        itemCount: items?.length ?? 0,
+        itemBuilder: (context, index) {
+          final item = items?.elementAtOrNull(index);
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // ─── Image slider ─────────────────────────────────────────
+              AspectRatio(
+                aspectRatio: 1.8,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: GeneralNetworkImage(
+                      url: item?.image?.url ?? "",
+                      boxFit: BoxFit.cover,
+                      width: double.infinity,
+                    )),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                item?.title ?? "",
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: Theme.of(context).textTheme.bodySmall,
+              ),
+            ],
+          );
+          // return VenueCard(
+          //   name: venue?.name ?? "",
+          //   location: venue?.city ?? "",
+          //   imageUrls: venueImagesUrls ?? [],
+          //   onCardTap: () {
+          //     Navigator.of(context)
+          //         .push(MaterialPageRoute(
+          //       builder: (context) {
+          //         return VenueDetailsScreen(
+          //             venue: venue);
+          //       },
+          //     ));
+          //   },
+          // );
+        });
   }
 }
