@@ -1,8 +1,14 @@
 part of "venue_details.dart";
 
 class VenueDetailsScreen extends StatefulWidget {
-  const VenueDetailsScreen({super.key, required this.venue});
+  const VenueDetailsScreen(
+      {super.key,
+      required this.venue,
+      required this.currentPage,
+      required this.index});
   final Item? venue;
+  final int currentPage;
+  final int index;
 
   @override
   State<VenueDetailsScreen> createState() => _VenueDetailsScreenState();
@@ -11,6 +17,18 @@ class VenueDetailsScreen extends StatefulWidget {
 class _VenueDetailsScreenState extends State<VenueDetailsScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _currentPage = widget.currentPage;
+    Future(
+      () {
+        _pageController.jumpToPage(_currentPage);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,6 +44,7 @@ class _VenueDetailsScreenState extends State<VenueDetailsScreen> {
                       )
                       .toList() ??
                   [],
+              index: widget.index,
               pageController: _pageController,
               currentPage: _currentPage,
               onPageChanged: (idx) => setState(() => _currentPage = idx),

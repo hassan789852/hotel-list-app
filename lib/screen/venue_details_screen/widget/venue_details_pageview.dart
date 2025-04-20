@@ -6,6 +6,7 @@ class VenueDetailsPageView extends StatelessWidget {
   final int currentPage;
   final ValueChanged<int> onPageChanged;
   final void Function()? closeFunction;
+  final int index;
 
   const VenueDetailsPageView({
     super.key,
@@ -13,7 +14,7 @@ class VenueDetailsPageView extends StatelessWidget {
     required this.pageController,
     required this.currentPage,
     required this.onPageChanged,
-    this.closeFunction,
+    this.closeFunction, required this.index,
   });
 
   @override
@@ -26,10 +27,13 @@ class VenueDetailsPageView extends StatelessWidget {
             itemCount: imageUrls.length,
             controller: pageController,
             onPageChanged: onPageChanged,
-            itemBuilder: (context, idx) => GeneralNetworkImage(
-              url: imageUrls[idx] ?? "",
-              boxFit: BoxFit.cover,
-              width: double.infinity,
+            itemBuilder: (context, idx) => Hero(
+                tag: "I${index}_S$currentPage",
+              child: GeneralNetworkImage(
+                url: imageUrls[idx] ?? "",
+                boxFit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
           ),
           // dot indicators

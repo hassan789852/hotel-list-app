@@ -6,13 +6,15 @@ class VenueCard extends StatefulWidget {
   final String name;
   final String location;
   final List<String?> imageUrls;
-  final void Function()? onCardTap;
+  final void Function(int)? onCardTap;
+  final int index;
   const VenueCard({
     super.key,
     required this.name,
     required this.location,
     required this.imageUrls,
     this.onCardTap,
+    required this.index,
   });
 
   @override
@@ -26,7 +28,9 @@ class _VenueCardState extends State<VenueCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onCardTap,
+      onTap: () {
+        widget.onCardTap!(_currentPage);
+      },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -41,10 +45,13 @@ class _VenueCardState extends State<VenueCard> {
                     controller: _pageController,
                     itemCount: widget.imageUrls.length,
                     onPageChanged: (idx) => setState(() => _currentPage = idx),
-                    itemBuilder: (context, idx) => GeneralNetworkImage(
-                      url: widget.imageUrls[idx] ?? "",
-                      boxFit: BoxFit.cover,
-                      width: double.infinity,
+                    itemBuilder: (context, idx) => Hero(
+                      tag: "I${widget.index}_S$_currentPage",
+                      child: GeneralNetworkImage(
+                        url: widget.imageUrls[idx] ?? "",
+                        boxFit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
                     ),
                   ),
                 ),
@@ -57,7 +64,7 @@ class _VenueCardState extends State<VenueCard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(
                       widget.imageUrls.length,
-                      (idx) => Container(
+                          (idx) => Container(
                         width: 8,
                         height: 8,
                         margin: const EdgeInsets.symmetric(horizontal: 3),

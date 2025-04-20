@@ -13,12 +13,19 @@ class PlaceInfoWindow extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (c) => VenueDetailsScreen(
-                venue:place           ),
-          ),
-        );
+        Navigator.push(
+            context,
+            PageRouteBuilder(
+              pageBuilder: (context, animation,
+                  secondaryAnimation) =>
+                  VenueDetailsScreen(
+                    venue: place,
+                    currentPage: 0,
+                    index: 0,
+                  ),
+              transitionDuration:
+              const Duration(milliseconds: 600),
+            ));;
       },
       child: Material(
         elevation: 6,

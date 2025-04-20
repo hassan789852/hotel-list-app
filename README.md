@@ -16,6 +16,30 @@ A Flutter app for discovering venues such as pools, gyms, and beaches, featuring
 
 ---
 
+
+# ⚙️ CI/CD Pipeline
+
+This project uses **GitHub Actions** for continuous integration and automated builds.
+
+### ✅ Workflow: `Build & Upload (Android, iOS)`
+
+Triggers:
+- On every `push` or `pull_request` to the `main` branch
+
+### 🧱 Key Steps:
+- ✅ Set up Java (Zulu 18.x)
+- ✅ Set up Flutter (v3.27.1, stable channel)
+- ✅ Restore pub packages
+- ✅ Build Android APK (`flutter build apk`)
+- ✅ Build iOS IPA (`flutter build ipa --no-codesign`)
+- ✅ Archive iOS build directory (`tar -czf ios_build.tar.gz ios`)
+
+> Note: Artifact upload and test steps are included but currently commented. You can enable them to:
+> - Run `flutter test` on each PR
+> - Upload builds to GitHub using `actions/upload-artifact@v3`
+
+The GitHub Actions workflow is defined in `.github/workflows/build.yml`.
+
 ## 🎬 UI/UX Animations
 
 | Feature                   | Description                                              |
