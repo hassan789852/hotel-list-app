@@ -165,6 +165,10 @@ await rootBundle.loadString('assets/json/gyms.json');
 
 This allows fast UI testing and logic validation without external APIs.
 
+if you want to test endpoint (after having server endpoint ) uncomment 'back end API' in line 35 in VenueListScreenController
+but because i don't have server i did the simulation
+
+
 ---
 
 ## 🚀 Advanced API Simulation with Dio
