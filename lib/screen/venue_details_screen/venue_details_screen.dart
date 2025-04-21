@@ -19,7 +19,7 @@ class _VenueDetailsScreenState extends State<VenueDetailsScreen> {
   int _currentPage = 0;
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     _currentPage = widget.currentPage;
     Future(
@@ -175,20 +175,7 @@ class VenueItemsDetailsGrid extends StatelessWidget {
               ),
             ],
           );
-          // return VenueCard(
-          //   name: venue?.name ?? "",
-          //   location: venue?.city ?? "",
-          //   imageUrls: venueImagesUrls ?? [],
-          //   onCardTap: () {
-          //     Navigator.of(context)
-          //         .push(MaterialPageRoute(
-          //       builder: (context) {
-          //         return VenueDetailsScreen(
-          //             venue: venue);
-          //       },
-          //     ));
-          //   },
-          // );
+
         });
   }
 }

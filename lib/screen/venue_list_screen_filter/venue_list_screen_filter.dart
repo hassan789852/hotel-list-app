@@ -71,7 +71,7 @@ class VenueListScreenFilter extends ConsumerWidget {
                     ),
                     FilterCategoryChips(filter: filters!,filterIndex: filtersIndex,
                         onChipTap: (categoryIndex){
-                      venueListFilterNotifier.onFilterChipTapV2(
+                      venueListFilterNotifier.onFilterChipTap(
                           filterIndex: filtersIndex,categoryIndex: categoryIndex);
                     },),
 

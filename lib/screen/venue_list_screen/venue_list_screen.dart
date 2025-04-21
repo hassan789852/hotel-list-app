@@ -111,13 +111,8 @@ class VenueListScreenState extends ConsumerState<VenueListScreen> {
                     context:  context,
                     fullList:  fullList,
                     fullResponse:fullResponse,
-
                     onApplyFilterPressed: () {
-                      // final venueListFilterState = ref.watch(sl<
-                      //     NotifierProviderImpl<VenueListFilterController,
-                      //         VenueListFilterState>>());
-                      // venueListScreenNotifier.applyFilter(
-                      //     filteredItems: venueListFilterState.filteredItems);
+
                     },
                   );
                 },

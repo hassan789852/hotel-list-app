@@ -56,7 +56,7 @@ void main() {
     final categoryId = gymsResponse.filters[filterIndex].categories[categoryIndex].id;
 
     // Simulate user tap
-    filterNotifier.onFilterChipTapV2(
+    filterNotifier.onFilterChipTap(
       filterIndex: filterIndex,
       categoryIndex: categoryIndex,
     );

@@ -14,10 +14,12 @@ final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
-  final DeepLinkService deepLinkService = DeepLinkService();
-  deepLinkService.init(navigatorKey);
+
+
 
   InjectionContainer.initializeDependencies();
+  final deepLinkService = sl<DeepLinkService>();
+  deepLinkService.init(navigatorKey);
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

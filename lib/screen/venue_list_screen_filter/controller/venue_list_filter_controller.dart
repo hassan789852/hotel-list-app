@@ -15,7 +15,10 @@ class VenueListFilterController extends _$VenueListFilterController {
     final fullList = asyncValue.fullItemsList??[];
 
 
-    debugPrint("debugger ============== VenueListFilterController called");
+
+
+
+    // we can use this is if the controller not alive
 
     // List<String> selectedCategoies=[];
     // for( var filter in filterResponse!.filters){
@@ -25,7 +28,6 @@ class VenueListFilterController extends _$VenueListFilterController {
     //     }
     //   }
     // }
-
 
     return VenueListFilterState(
 
@@ -40,7 +42,7 @@ class VenueListFilterController extends _$VenueListFilterController {
 
 
 
-  void onFilterChipTapV2({
+  void onFilterChipTap({
 
     required filterIndex,
   required categoryIndex}) {
