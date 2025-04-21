@@ -24,7 +24,7 @@ void main() {
     // Prime the VenueListScreenController state
     final venueNotifier =
     container.read(venueListScreenControllerProvider.notifier);
-    venueNotifier.state = VenueListScreenState(
+    venueNotifier.state = VenueListState(
       gridController: ScrollController(),
       selectedCategoies: [],
       venues: AsyncValue.data(gymsResponse),

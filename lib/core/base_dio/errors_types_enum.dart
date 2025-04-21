@@ -4,6 +4,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 
+import '../constant/constant.dart';
+
 class ExceptionResponse {
   final int statusCode;
   final List<dynamic> exceptionMessages;

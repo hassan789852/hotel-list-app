@@ -103,7 +103,7 @@ class VenueListFilterController extends _$VenueListFilterController {
 
 
   void onApplyButtonPressed(BuildContext context) {
-    ref.read(sl<AutoDisposeNotifierProviderImpl<VenueListScreenController,VenueListScreenState>>()
+    ref.read(sl<AutoDisposeNotifierProviderImpl<VenueListScreenController,VenueListState>>()
             .notifier)
         .applyFilter(filteredItems: state.filteredItems);
 

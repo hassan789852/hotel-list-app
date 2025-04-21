@@ -156,47 +156,7 @@ class BaseDio {
     }
   }
 
-  // Future<DataState> getPagination<T extends GeneralModel>(
-  //     {required String subUrl,
-  //     String? token,
-  //     String? url,
-  //     required dynamic model,
-  //     required PaginateReqEntity paginateReqEntity,
-  //     bool needToken = false,
-  //     Object? data,
-  //     Map<String, dynamic>? queryParameters}) async {
-  //   if (needToken) {
-  //     dioProject.options.headers["Authorization"] =
-  //         "Bearer ${token ?? LocalStaticVar.token}";
-  //   }
-  //   try {
-  //     var response = await dioProject.get("${url ?? Constant.baseUrl}$subUrl",
-  //         queryParameters: queryParameters, data: data);
 
-  //     final pageData = PaginationModel.fromJson(json.decode(response.data));
-  //     final List<T> dataList = [];
-  //     pageData.data?.forEach((modelData) {
-  //       dataList.add(model.fromJson(modelData));
-  //     });
-  //     int totalPage =
-  //         ((pageData.pagination?.totalpage ?? 10) / paginateReqEntity.perPage)
-  //             .ceil();
-  //     var result = PageEntity<T>(data: dataList, totalPage: totalPage);
-
-  //     return DataSuccess(result);
-  //   } on DioException catch (e) {
-  //     print(e.stackTrace);
-  //     final ExceptionResponse exceptionResponse = getExceptionResponse(e);
-  //     return DataFailed<ExceptionResponse>(exceptionResponse);
-  //   } catch (e, stacktrace) {
-  //     print(e);
-  //     print('Stacktrace: $stacktrace');
-  //     final ExceptionResponse exceptionResponse = ExceptionResponse(
-  //         statusCode: -888,
-  //         exceptionMessages: ["Another exception was thrown"]);
-  //     return DataFailed<ExceptionResponse>(exceptionResponse);
-  //   }
-  // }
   Future<DataState> basePost({
     required String subUrl,
     dynamic data,

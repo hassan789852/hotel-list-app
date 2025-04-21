@@ -12,7 +12,7 @@ String _$venueListScreenControllerHash() =>
 /// See also [VenueListScreenController].
 @ProviderFor(VenueListScreenController)
 final venueListScreenControllerProvider = AutoDisposeNotifierProvider<
-    VenueListScreenController, VenueListScreenState>.internal(
+    VenueListScreenController, VenueListState>.internal(
   VenueListScreenController.new,
   name: r'venueListScreenControllerProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -22,6 +22,6 @@ final venueListScreenControllerProvider = AutoDisposeNotifierProvider<
   allTransitiveDependencies: null,
 );
 
-typedef _$VenueListScreenController = AutoDisposeNotifier<VenueListScreenState>;
+typedef _$VenueListScreenController = AutoDisposeNotifier<VenueListState>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

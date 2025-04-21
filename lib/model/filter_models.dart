@@ -1,16 +1,27 @@
 // filter_models.dart
 
+import 'package:hotel_list_app/core/base_dio/general_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'filter_models.g.dart';
 
 @JsonSerializable()
-class FilterResponse {
+class FilterResponse extends GeneralModel {
   final List<FilterGroup> filters;
   final List<Item>? items;
   FilterResponse({required this.filters, required this.items});
   factory FilterResponse.fromJson(Map<String, dynamic> json) =>
       _$FilterResponseFromJson(json);
+
+  @override
+  GeneralModel fromJson(json) {
+   return FilterResponse.fromJson(json);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return {};
+  }
 }
 
 @JsonSerializable()

@@ -7,6 +7,9 @@ import 'package:hotel_list_app/model/filter_models.dart';
 import 'package:hotel_list_app/screen/venue_list_screen_filter/controller/venue_list_filter_controller.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../../core/base_dio/base_dio.dart';
+import '../../../core/base_dio/data_state.dart';
+import '../../../core/base_dio/errors_types_enum.dart';
 import '../../../injection_container.dart';
 import '../../venue_list_screen_filter/venue_list_filter.dart';
 part 'venue_list_screen_controller.g.dart';
@@ -14,8 +17,8 @@ part 'venue_list_screen_controller.g.dart';
 @riverpod
 class VenueListScreenController extends _$VenueListScreenController {
   @override
-  VenueListScreenState build() {
-    return VenueListScreenState(gridController: ScrollController(),selectedCategoies:[]);
+  VenueListState build() {
+    return VenueListState(gridController: ScrollController(),selectedCategoies:[]);
   }
 
   void changeChip(int index) {
@@ -23,6 +26,46 @@ class VenueListScreenController extends _$VenueListScreenController {
     getVenuesByChoiceChip(index: index);
   }
 
+
+
+
+
+  // back end API
+
+/*  Future<void> getVenuesByChoiceChip({required int index}) async {
+    if (!(index == 0 || index == 1)) return;
+
+    state = state.copyWith(venues: AsyncValue.loading());
+
+    try {
+      final DataState response = await sl<BaseDio>().get(
+        subUrl: index == 0 ? '/hotels' : '/gyms',
+        model: FilterResponse(filters: [],items: []), // Ensure FilterResponse extends GeneralModel
+        isListOfModel: false,
+      );
+
+
+      if (response is DataSuccess) {
+        final FilterResponse filterResponse = response.data  as FilterResponse;
+        state = state.copyWith(
+          venues: AsyncValue.data(filterResponse),
+          fullItemsList: filterResponse.items,
+        );
+      }else{
+        state = state.copyWith(
+          venues: AsyncValue.error(response.exceptionResponse?.exceptionMessages.elementAtOrNull(0) ??
+              "", StackTrace.current),
+        );
+
+      }
+
+    } catch (e, st) {
+      state = state.copyWith(
+        venues: AsyncValue.error(e, st),
+      );
+
+    }
+  }*/
 
 
 
@@ -135,7 +178,7 @@ class VenueListScreenController extends _$VenueListScreenController {
   }
 }
 
-class VenueListScreenState {
+class VenueListState {
   final int selectedChip;
   final int pageSize;
   final AsyncValue<FilterResponse>? venues;
@@ -146,7 +189,7 @@ class VenueListScreenState {
   final int currentPage;
   final ScrollController gridController;
 
-  VenueListScreenState(
+  VenueListState(
       {this.selectedChip = 0,
       this.currentPage = 0,
       this.pageSize = 20,
@@ -157,7 +200,7 @@ class VenueListScreenState {
       required this.selectedCategoies,
       this.fullItemsList});
 
-  VenueListScreenState copyWith({
+  VenueListState copyWith({
     int? selectedChip,
     int? pageSize,
     int? currentPage,
@@ -168,7 +211,7 @@ class VenueListScreenState {
     List<Item>? fullItemsList,
     List<String>? selectedCategoies,
   }) {
-    return VenueListScreenState(
+    return VenueListState(
         selectedChip: selectedChip ?? this.selectedChip,
         venues: venues ?? this.venues,
         pageSize: pageSize ?? this.pageSize,

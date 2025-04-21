@@ -33,6 +33,26 @@ class VenueListScreenState extends ConsumerState<VenueListScreen> {
     final venueListScreenState = ref.watch(venueListScreenControllerProvider);
     final venueListScreenNotifier =
         ref.read(venueListScreenControllerProvider.notifier);
+
+
+    ref.listen<VenueListState>(
+      venueListScreenControllerProvider,
+          (_, next) {
+        next.venues?.when(
+          data: (data) {
+            // Optionally handle loaded data
+          },
+          error: (error, stackTrace) {
+            showSnackBarMessage(context, message: error.toString());
+          },
+          loading: () {
+            // Optionally show a spinner
+          },
+        );
+      },
+    );
+
+
     return Scaffold(
       appBar: VenuListScreenAppbar(),
       body: Column(
